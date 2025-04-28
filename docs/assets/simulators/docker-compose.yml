@@ -1,0 +1,117 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  # — acht S7-Simulatoren —
+  s7-simulator-welding:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-welding
+    ports:
+      - "1101:102"
+      - "1801:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-punching:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-punching
+    ports:
+      - "1102:102"
+      - "1802:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-packaging:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-packaging
+    ports:
+      - "1103:102"
+      - "1803:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-inspection:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-inspection
+    ports:
+      - "1104:102"
+      - "1804:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-painting:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-painting
+    ports:
+      - "1105:102"
+      - "1805:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-warehouse:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-warehouse
+    ports:
+      - "1106:102"
+      - "1806:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-storage:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-storage
+    ports:
+      - "1107:102"
+      - "1807:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  s7-simulator-agv:
+    image: fbarresi/softplc:latest-linux
+    container_name: s7-simulator-agv
+    ports:
+      - "1108:102"
+      - "1808:8080"
+    environment:
+      DATA_PATH: "/demodata"
+    volumes:
+      - demodata:/demodata:ro
+
+  # — dynamischer Daten-Updater —
+  s7-data-updater:
+    image: python:3.11-slim
+    container_name: s7-data-updater
+    depends_on:
+      - s7-simulator-welding
+      - s7-simulator-punching
+      - s7-simulator-packaging
+      - s7-simulator-inspection
+      - s7-simulator-painting
+      - s7-simulator-warehouse
+      - s7-simulator-storage
+      - s7-simulator-agv
+    volumes:
+      - ./update_data.py:/app/update_data.py:ro
+    working_dir: /app
+    command: >
+      sh -c "pip install --no-cache-dir requests &&
+             python update_data.py"
+    restart: unless-stopped
+
+volumes:
+  demodata:
+    driver: local

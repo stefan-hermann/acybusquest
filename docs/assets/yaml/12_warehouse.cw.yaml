@@ -1,0 +1,93 @@
+---
+description: >
+  Warehouse for temporary storage of finished products before delivery.
+
+metadata:
+  name: finishedGoodsWarehouse01
+  version: "0.1"
+
+parameters:
+  plcHost:
+    type: string
+    default: "192.168.3.139"
+
+  plcPort:
+    type: integer
+    default: 1106
+
+  organization:
+    default: carfactory
+    type: string
+
+  location:
+    default: plant1
+    type: string
+
+  processarea:
+    default: finishedGoodsWarehouse
+    type: string
+
+  equipment:
+    default: storage01
+    type: string
+
+definitions:
+  CYBUS_MQTT_ROOT: !sub '${organization}/${location}/${processarea}/${equipment}'
+
+resources:
+  s7Connection:
+    type: Cybus::Connection
+    properties:
+      protocol: S7
+      targetState: connected
+      connection:
+        host: !ref plcHost
+        port: !ref plcPort
+        rack: 0
+        slot: 1
+        pollInterval: 1000
+
+  inventoryLevel:
+    type: Cybus::Endpoint
+    properties:
+      protocol: S7
+      connection: !ref s7Connection
+      subscribe:
+        address: DB1,REAL0
+      topic: !sub '${Cybus::ServiceId}/inventoryLevel'
+
+  occupancy:
+    type: Cybus::Endpoint
+    properties:
+      protocol: S7
+      connection: !ref s7Connection
+      subscribe:
+        address: DB1,REAL4
+      topic: !sub '${Cybus::ServiceId}/occupancy'
+
+  temperature:
+    type: Cybus::Endpoint
+    properties:
+      protocol: S7
+      connection: !ref s7Connection
+      subscribe:
+        address: DB1,REAL8
+      topic: !sub '${Cybus::ServiceId}/temperature'
+
+  humidity:
+    type: Cybus::Endpoint
+    properties:
+      protocol: S7
+      connection: !ref s7Connection
+      subscribe:
+        address: DB1,DINT12
+      topic: !sub '${Cybus::ServiceId}/humidity'
+
+  nextDispatchDate:
+    type: Cybus::Endpoint
+    properties:
+      protocol: S7
+      connection: !ref s7Connection
+      subscribe:
+        address: DB1,INT16
+      topic: !sub '${Cybus::ServiceId}/nextDispatchDate'

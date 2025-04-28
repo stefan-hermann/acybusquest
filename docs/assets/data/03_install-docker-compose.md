@@ -1,0 +1,36 @@
+---
+# Nothing to do here in frontmatter
+---
+
+<!-- Hotspot-Shortcode: Bild + Unified Namespace -->
+<div class="hotspot-block float-right ml-6 mb-6 w-full sm:w-1/2 lg:w-1/2"
+     data-image="../images/docker-compose.png">
+</div>
+
+# Install Docker Compose
+
+If you don't have Docker Compose up and running, follow this steps.
+You can check if Docker Compose is installed with:
+``` bash
+docker compose version
+```
+
+1. Add Docker's official GPG key:
+``` bash
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
+
+2. Add the repository to Apt sources:
+
+``` bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```

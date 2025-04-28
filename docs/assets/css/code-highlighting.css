@@ -1,0 +1,39 @@
+/* assets/css/hotspots.css */
+
+/* Wrapper um jeden Code-Block: Positionierung für absolute Toolbar */
+.code-block {
+  @apply relative mb-6;
+}
+
+/* <pre> als Container: Abstand oben für Toolbar */
+.code-block > pre {
+  @apply pt-6 overflow-auto;
+}
+
+/* Toolbar als direktes Kind von .code-block positionieren */
+.code-block .code-toolbar {
+  @apply absolute inset-x-0 top-0 flex justify-between items-center px-2 py-1 bg-gray-800 bg-opacity-75 rounded-t-lg text-xs font-mono;
+}
+
+/* Sprache-Label: Terminal-Icon und Text linkbündig */
+.code-block .code-toolbar .code-label {
+  @apply flex items-center text-gray-200;
+}
+.code-block .code-toolbar .code-label::before {
+  content: '';
+  @apply inline-block mr-1;
+}
+
+/* Copy-Button: Clipboard-Icon und Text rechtsbündig */
+.code-block .code-toolbar .code-copy {
+  @apply flex items-center text-gray-200;
+}
+.code-block .code-toolbar .code-copy::before {
+  content: '';
+  @apply inline-block ml-1;
+}
+
+/* Hover-Effekt für Copy */
+.code-block .code-toolbar .code-copy:hover {
+  @apply text-primary;
+}

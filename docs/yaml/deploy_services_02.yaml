@@ -1,0 +1,48 @@
+# This ansible playbook deploys two welding robots
+# ansible-playbook -i localhost, deploy_services_01.yaml --connection=local
+
+- name: Deploy Service Commissioning Files 01
+  hosts: localhost                                # Run all tasks on the local machine
+  # hosts: local_network                          # Alternative: run from a client on the same network
+  gather_facts: false
+
+  vars:
+    target_hostname: localhost:443
+    validate_certs: false
+
+  tasks:
+    - name: Deploy Welding Robots
+      loop:
+        - id: weldingRobot01_05
+          commissioning_file: ./05_welding_05.cw.yaml
+          plcHost: "192.168.3.139"
+          plcPort: 1101
+          organization: "carfactory"
+          location: "plant1"
+          processarea: "weldingShop"
+          equipment: "weldingRobot01"
+
+        - id: weldingRobot02_04                            # Service ID for the second welding robot
+          commissioning_file: ./05_welding_05.cw.yaml      # (Could point to a different file if needed)
+          plcHost: "192.168.3.139"                         # PLC IP address for second robot
+          plcPort: 1101                                    # PLC TCP port for second robot
+          organization: "carfactory"                       # MQTT organization remains the same
+          location: "plant1"                               # MQTT location remains the same
+          processarea: "weldingShop"                       # MQTT process area remains the same
+          equipment: "weldingRobot02"                      # MQTT equipment identifier for second robot
+            
+      loop_control:
+        loop_var: welding
+      cybus.connectware.service:
+        id: "{{ welding.id }}"
+        commissioning_file: "{{ welding.commissioning_file }}"
+        enabled: true
+        target_hostname: "{{ target_hostname }}"
+        validate_certs: "{{ validate_certs }}"
+        parameters:
+          plcHost: "{{ welding.plcHost }}"
+          plcPort: 1101
+          organization: "{{ welding.organization }}"
+          location: "{{ welding.location }}"
+          processarea: "{{ welding.processarea }}"
+          equipment: "{{ welding.equipment }}"
