@@ -1,0 +1,8 @@
+# .gitignore im Repo-Root
+
+# Ignoriere alles …
+*
+# … außer dem docs-Ordner und .gitignore selbst
+!docs/
+!docs/**
+!.gitignore
