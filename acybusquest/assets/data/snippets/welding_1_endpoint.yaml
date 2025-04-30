@@ -1,0 +1,8 @@
+- top: 62.90% 
+  left: 55.64%
+  content: "<h3>Position</h3><p>Displays the current position of the welding point.</p>"
+  uns: "carfactory/plant1/weldingShop/weldingRobot01/position"
+  overlay:
+    top: 50.66%
+    left: 2.64%
+    width: 220px
