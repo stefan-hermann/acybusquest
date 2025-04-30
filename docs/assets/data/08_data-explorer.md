@@ -3,7 +3,7 @@
 ---
 
 <div class="hotspot-block float-right ml-6 mb-6 w-full sm:w-1/2 lg:w-1/2"
-     data-image="../images/data-explorer.png">
+     data-image="../images/data-explorer.jpg">
 </div>
 
 # Data Explorer
