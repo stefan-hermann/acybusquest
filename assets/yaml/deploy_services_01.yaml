@@ -1,0 +1,39 @@
+# This Ansible playbook deploys one welding robot service commissioning file
+# Usage: ansible-playbook -i localhost, deploy_services_01.yaml --connection=local
+
+- name: Deploy Service Commissioning Files 01     # Play name shown in output
+  hosts: localhost                               # Run all tasks on the local machine
+  # hosts: local_network                          # Alternative: run from a client on the same network
+  gather_facts: false                             # Skip fact-gathering for speed
+
+  vars:                                           # Define variables for the play
+    target_hostname: localhost:443                # Connectware API endpoint (host:port)
+    validate_certs: false                         # Skip SSL certificate validation
+
+  tasks:                                          # List of tasks to execute
+    - name: Deploy Welding Robots                 # Task name shown in output
+      loop:                                       # Iterate over a list of robot definitions
+        - id: weldingRobot01_05                   #   – Unique service ID for this robot
+          plcHost: "192.168.3.139"                #   – PLC IP address parameter
+          plcPort: 1101                           #   – PLC TCP port parameter
+          organization: "carfactory"              #   – MQTT organization segment
+          location: "plant1"                      #   – MQTT location segment
+          processarea: "weldingShop"              #   – MQTT process area segment
+          equipment: "weldingRobot01"             #   – MQTT equipment segment
+      loop_control:                               # Control behavior of the loop
+        loop_var: welding                         #   – Name to reference each item in the loop
+
+      cybus.connectware.service:                  # Use the Connectware Ansible module
+        id: "{{ welding.id }}"                    #   – Service ID from the loop item
+        commissioning_file: ./05_welding_05.cw.yaml  
+                                                  #   – Path to the CW YAML commissioning file
+        enabled: true                             #   – Ensure the service is enabled in Connectware
+        target_hostname: "{{ target_hostname }}"  #   – API endpoint variable from vars
+        validate_certs: "{{ validate_certs }}"    #   – SSL validation flag from vars
+        parameters:                               #   – Service parameters to pass into Connectware
+          plcHost: "{{ welding.plcHost }}"        #     – PLC host from loop item
+          plcPort: 1101                           #     – PLC port (hardcoded or could use "{{ welding.plcPort }}")
+          organization: "{{ welding.organization }}"  #     – Organization segment
+          location: "{{ welding.location }}"      #     – Location segment
+          processarea: "{{ welding.processarea }}"  #     – Process area segment
+          equipment: "{{ welding.equipment }}"    #     – Equipment segment

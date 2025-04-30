@@ -1,0 +1,40 @@
+- top: 62.90% 
+  left: 55.64%
+  content: "<h3>Position</h3><p>Displays the current position of the welding point.</p>"
+  uns: "carfactory/plant1/weldingShop/weldingRobot01/position"
+  overlay:
+    top: 50.66%
+    left: 2.64%
+    width: 220px
+- top: 50.00% 
+  left: 56.71%
+  content: "<h3>Weld Current</h3><p>Shows the electrical current used during the welding process.</p>"
+  uns: "carfactory/plant1/weldingShop/weldingRobot01/weldCurrent"
+  overlay:
+    top: 31.10%
+    left: 6.51%
+    width: 220px
+- top: 33.84%
+  left: 44.37%
+  content: "<h3>Weld Voltage</h3><p>Displays the voltage applied by the welding system.</p>"
+  uns: "carfactory/plant1/weldingShop/weldingRobot01/weldVoltage"
+  overlay:
+    top: 14.84%
+    left: 8.10%
+    width: 220px
+- top: 63.63%
+  left: 41.53%
+  content: "<h3>Welding Speed</h3><p>Indicates the movement speed of the robot during welding.</p>"
+  uns: "carfactory/plant1/weldingShop/weldingRobot01/weldSpeed"
+  overlay:
+    top: 38.69%
+    left: 4.25%
+    width: 220px
+- top: 59.36% 
+  left: 56.44%
+  content: "<h3>Nozzle Temperatur</h3><p>Displays the temperature of the welding nozzle.</p>"
+  uns: "carfactory/plant1/weldingShop/weldingRobot01/nozzleTemperature"
+  overlay:
+    top: 40.28%
+    left: 6.51%
+    width: 220px      

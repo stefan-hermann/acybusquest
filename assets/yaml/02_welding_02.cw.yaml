@@ -1,0 +1,45 @@
+---
+description: >
+  Welding Robot Type 001 S7
+
+metadata:
+  name: weldingRobot01_02
+  version: "0.2"
+
+# ★★★★★ ★★★★★ ★★★★★ Parameter section ★★★★★ ★★★★★ ★★★★★ 
+
+parameters:                                                # Section defining user-configurable parameters
+  plcHost:                                                 #   – Hostname or IP address of the PLC
+    type: string                                           #     – Data type of this parameter
+    default: "192.168.3.139"                               #     – Default IP if not overridden by user
+
+  plcPort:                                                 #   – TCP port on which the PLC listens
+    type: integer                                          #     – Data type of this parameter
+    default: 1101                                          #     – Default port if not overridden
+
+# ★★★★★ ★★★★★ ★★★★★ ★★ ¯\_(ツ)_/¯ ★★ ★★★★★ ★★★★★ ★★★★★
+
+definitions:
+  CYBUS_MQTT_ROOT: 'carfactory/plant1/weldingRobot01'
+
+resources:
+  s7Connection:
+    type: Cybus::Connection
+    properties:
+      protocol: S7
+      targetState: connected
+      connection:
+        host: !ref plcHost                                 #   – Reference to the plcHost parameter defined above
+        port: !ref plcPort                                 #   – Reference to the plcPort parameter defined above
+        rack: 0
+        slot: 1
+        pollInterval: 1000
+
+  position:
+    type: Cybus::Endpoint
+    properties:
+      protocol: S7
+      connection: !ref s7Connection
+      subscribe:
+        address: DB1,REAL0
+      topic: !sub '${Cybus::ServiceId}/position'
