@@ -4,7 +4,7 @@
 
 <!-- Hotspot-Shortcode: Bild + Unified Namespace -->
 <div class="hotspot-block float-right ml-6 mb-6 w-full sm:w-1/2 lg:w-1/2"
-     data-image="../images/datacenter.png">
+     data-image="../images/datacenter.jpg">
 </div>
 
 # IntelNUC Setup

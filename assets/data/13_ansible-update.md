@@ -3,7 +3,7 @@
 ---
 
 <div class="slideshow-block float-right ml-6 mb-6 w-full sm:w-1/2 lg:w-1/2"
-     data-images="../assets/images/welding.png,../assets/images/storage.png,../assets/images/agv.png,../assets/images/punching.png,../assets/images/coating.png,../assets/images/inspection.png,../assets/images/packaging.png,../assets/images/warehouse.png"
+     data-images="../assets/images/welding.jpg,../assets/images/storage.jpg,../assets/images/agv.jpg,../assets/images/punching.jpg,../assets/images/coating.jpg,../assets/images/inspection.jpg,../assets/images/packaging.jpg,../assets/images/warehouse.jpg"
      data-snippets="assets/data/snippets/welding_5_endpoints.yaml,assets/data/snippets/storage.yaml,assets/data/snippets/agv.yaml,assets/data/snippets/punching.yaml,assets/data/snippets/coating.yaml,assets/data/snippets/inspection.yaml,assets/data/snippets/packaging.yaml,assets/data/snippets/warehouse.yaml"
      data-duration="4000">
 </div>
